@@ -1,11 +1,12 @@
 /* ==========================================================================
-   Sana 終極微笑之書 - 核心魔法動效 (交響樂終極版)
+   Sana 終極微笑之書 - 核心魔法動效 (宇宙無敵大融合版)
    ========================================================================== */
 
 let sakuraInterval = null;
 let starInterval = null;
 let currentTheme = 'light';
-let isMusicPlaying = false; // 追蹤音樂是否正在播放
+let isMusicPlaying = false;
+let countdownTimerInterval = null; // 倒數計時器計時器
 
 const sanaProfileData = `
     <h4 class="profile-title">🔮 湊崎紗夏 (Sana) 終極檔案</h4>
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const commenterName = document.getElementById('commenterName');
     const commentText = document.getElementById('commentText');
 
-    // 【新增音樂盒控制元件】
+    // 音樂盒控制元件
     const magicMusicBox = document.getElementById('magicMusicBox');
     const musicToggleBtn = document.getElementById('musicToggleBtn');
     const audioSpring = document.getElementById('audioSpring');
@@ -59,17 +60,17 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = 'auto';
             document.querySelector('.magic-content-wrapper').classList.add('fade-in');
 
-            // 【神級修正聯動】：大門完全消失後，音樂盒以 1 秒的速度溫柔浮現
+            // 音樂盒平滑現形
             magicMusicBox.style.display = 'flex';
-            setTimeout(() => {
-                magicMusicBox.style.opacity = '1';
-            }, 50);
+            setTimeout(() => { magicMusicBox.style.opacity = '1'; magicMusicBox.style.pointerEvents = 'auto'; }, 50);
 
             startSakuraRain();
+            initScrollReveal();
+            startBirthdayCountdown(); // 【進化3】：啟動生日倒數計時器
         }, 1500);
     });
 
-    // 2. 雙色系切換（內含音軌智慧無縫抽換邏輯）
+    // 2. 雙色系切換
     themeBtn.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
         const btnIcon = themeBtn.querySelector('.btn-icon');
@@ -80,7 +81,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btnIcon.textContent = '🔮'; btnText.textContent = '切換：星夜魔法';
             stopSakuraRain(); startStarRain();
 
-            // 【音樂智慧切換】：如果目前正在放音樂，把春日停掉，無縫換成星夜夜曲
             if (isMusicPlaying) {
                 audioSpring.pause();
                 audioMidnight.play();
@@ -90,7 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btnIcon.textContent = '🌸'; btnText.textContent = '切換：春日仙境';
             stopStarRain(); startSakuraRain();
 
-            // 【音樂智慧切換】：如果目前正在放音樂，把星夜停掉，無縫換成春日旋律
             if (isMusicPlaying) {
                 audioMidnight.pause();
                 audioSpring.play();
@@ -98,29 +97,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 3. 【音樂盒主體點擊邏輯】
+    // 3. 音樂盒點擊邏輯
     musicToggleBtn.addEventListener('click', () => {
         const musicIcon = musicToggleBtn.querySelector('.music-icon');
 
         if (!isMusicPlaying) {
-            // 啟動播放
             isMusicPlaying = true;
             musicToggleBtn.classList.add('playing');
-            musicIcon.textContent = '⏸'; // 按鈕圖示變成暫停
+            musicIcon.textContent = '⏸';
 
-            // 根據當前色彩模式，決定播哪一首
-            if (currentTheme === 'light') {
-                audioSpring.play();
-            } else {
-                audioMidnight.play();
-            }
+            if (currentTheme === 'light') { audioSpring.play(); } else { audioMidnight.play(); }
         } else {
-            // 暫停播放
             isMusicPlaying = false;
             musicToggleBtn.classList.remove('playing');
-            musicIcon.textContent = '🎵'; // 恢復音符圖示
-
-            // 兩首都強制暫停
+            musicIcon.textContent = '🎵';
             audioSpring.pause();
             audioMidnight.pause();
         }
@@ -173,6 +163,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+/* ==========================================================================
+   核心輔助函數 (粒子、氣候、留言板、滾動立體浮現)
+   ========================================================================== */
 function loadComments() {
     const display = document.getElementById('commentsDisplay'); if (!display) return;
     let comments = JSON.parse(localStorage.getItem('sana_comments')) || [];
@@ -200,6 +193,7 @@ function createSparkParticles(startX, startY) {
         setTimeout(() => { particle.remove(); }, 1200);
     }
 }
+
 function startSakuraRain() {
     if (sakuraInterval) return;
     sakuraInterval = setInterval(() => {
@@ -213,6 +207,7 @@ function stopSakuraRain() {
     clearInterval(sakuraInterval); sakuraInterval = null;
     document.querySelectorAll('.sakura-petal').forEach(p => { p.style.transition = 'opacity 1s ease'; p.style.opacity = '0'; setTimeout(() => { p.remove(); }, 1000); });
 }
+
 function startStarRain() {
     if (starInterval) return;
     starInterval = setInterval(() => {
@@ -222,5 +217,65 @@ function startStarRain() {
         setTimeout(() => { star.remove(); }, randomDuration * 1000);
     }, 150);
 }
-/* --- 修正：確保移除流星雨時完全清空 --- */
 function stopStarRain() { clearInterval(starInterval); starInterval = null; document.querySelectorAll('.star-particle').forEach(s => { s.remove(); }); }
+
+function initScrollReveal() {
+    const revealTargets = document.querySelectorAll('.story-chapter, .quotes-section, .guestbook-section, .magic-countdown-container');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('reveal-active');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+    revealTargets.forEach(target => { observer.observe(target); });
+}
+
+/* ==========================================================================
+   【全新高階進化3】：Sana 的魔法生日倒數鐘引擎
+   ========================================================================== */
+function startBirthdayCountdown() {
+    const dDays = document.getElementById('countdownDays');
+    const dHours = document.getElementById('countdownHours');
+    const dMins = document.getElementById('countdownMinutes');
+    const dSecs = document.getElementById('countdownSeconds');
+
+    if (!dDays) return; // 如果網頁上還沒有 HTML 容器則跳出
+
+    function updateClock() {
+        const now = new Date();
+        let currentYear = now.getFullYear();
+        // 設定下一次生日的時間點（12 月 29 日）
+        let nextBirthday = new Date(currentYear, 11, 29, 0, 0, 0);
+
+        // 如果今年的生日已經過了，自動將目標跳向明年的生日！
+        if (now > nextBirthday) {
+            nextBirthday = new Date(currentYear + 1, 11, 29, 0, 0, 0);
+        }
+
+        const timeDifference = nextBirthday - now; // 剩餘毫秒數
+
+        // 精密時間常數換算
+        const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+        // 動態注入網頁，並自動幫個位數補 0（例如 5 秒變成 05 秒，追求細節完美）
+        dDays.textContent = days;
+        dHours.textContent = hours.toString().padStart(2, '0');
+        dMins.textContent = minutes.toString().padStart(2, '0');
+        dSecs.textContent = seconds.toString().padStart(2, '0');
+
+        // 如果剛好倒數到 0 (生日當天！)
+        if (timeDifference <= 0) {
+            clearInterval(countdownTimerInterval);
+            document.querySelector('.countdown-label').textContent = "🌸 🎉 祝我們最愛的精靈 Sana 生日快樂！！！ 🎉 🌸";
+        }
+    }
+
+    // 立刻執行一次防止初始畫面空白，接著每 1 秒精確更新一次
+    updateClock();
+    countdownTimerInterval = setInterval(updateClock, 1000);
+}
