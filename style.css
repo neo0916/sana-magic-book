@@ -1144,22 +1144,29 @@ body.dark-mode .timer-number {
 }
 
 /* ==========================================================================
-   13. 時光軸立體浮現動畫樣式 (Scroll-Driven Reveal)
+   13. 時光軸立體浮現動畫樣式 (Scroll-Driven Reveal - 終極補完)
    ========================================================================== */
+
+/* 頂級技巧：讓所有故事章節、語錄牆、留言板、倒數鐘，預設先下沉 50 像素並隱形 */
 .story-chapter,
+.magic-countdown-container,
 .quotes-section,
-.guestbook-section,
-.magic-countdown-container {
+.guestbook-section {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(50px);
+    /* 往下沉，等待喚醒 */
     transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    /* 超絲滑的漸進曲線 */
     will-change: transform, opacity;
+    /* 強迫顯示卡硬體加速，滾動絕不卡頓 */
 }
 
+/* 當 JavaScript 的觀察者精靈發現卡片進入螢幕時，會注入這個類別，讓卡片優雅升起 */
 .story-chapter.reveal-active,
+.magic-countdown-container.reveal-active,
 .quotes-section.reveal-active,
-.guestbook-section.reveal-active,
-.magic-countdown-container.reveal-active {
+.guestbook-section.reveal-active {
     opacity: 1;
     transform: translateY(0);
+    /* 完美回到原位 */
 }
