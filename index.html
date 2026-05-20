@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Magical Book of Sana - 終極微笑之書</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- 1. 魔法開場大門 -->
+    <div class="magic-intro">
+        <div class="magic-mist"></div>
+        <div class="smile-key-container">
+            <div class="smile-card">
+                <img src="images/sana-smile.jpg" alt="Sana's Perfect Smile" class="smile-photo">
+                <div class="magic-glow"></div>
+            </div>
+            <h1 class="magic-title">Sana's Smile Lights Up The World</h1>
+            <p class="magic-subtitle">輕觸笑容，喚醒魔法世界</p>
+        </div>
+    </div>
+
+    <!-- 2. 大門後解鎖的終極主體：【Sana 的一生】魔法書內容 (新增這個區塊) -->
+    <div class="magic-content-wrapper">
+
+        <!-- 頂部魔法導覽列 -->
+        <nav class="magic-nav">
+            <div class="nav-logo">SANA.永遠的精靈</div>
+            <div class="nav-controls" style="display: flex; gap: 15px; align-items: center;">
+                <!-- 【新增功能 1】：詳細資料按鈕 -->
+                <button class="theme-toggle-btn" id="profileBtn"
+                    style="background: rgba(218, 178, 255, 0.3); border-color: #dab2ff; color: #7c5295;">
+                    <span>✨</span><span>探索 Sana 檔案</span>
+                </button>
+                <button class="theme-toggle-btn" id="magicThemeBtn">
+                    <span class="btn-icon">🌸</span><span class="btn-text">切換：春日仙境</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- 主體核心：記憶章節 -->
+        <main class="story-container">
+        
+            <!-- 序章 Banner -->
+            <section class="story-hero">
+                <h2 class="hero-title">Sana 的夢幻一生</h2>
+                <p class="hero-intro">「從大阪的編織少女，到照亮全球的魔法精靈。」</p>
+                <div class="scroll-badge">向下捲動 ── 翻開回憶的篇章</div>
+            </section>
+
+            <!-- Chapter 01 -->
+            <section class="story-chapter">
+                <div class="chapter-badge">Chapter 01 ── 起點</div>
+                <h3 class="chapter-title">大阪的純真笑顏</h3>
+                <p class="chapter-text">1996年12月29日，一個註定要用笑容治癒世界的女孩在大阪誕生...</p>
+                <!-- 【新增功能 2】：加上 data-album 標記，點擊觸發專屬相簿 -->
+                <div class="chapter-gallery">
+                    <div class="magic-photo-frame" data-album="osaka">
+                        <img src="images/sana-smile.jpg" alt="Sana" class="gallery-photo">
+                        <div class="photo-caption">🔍 點擊開啟：大阪時光相簿</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Chapter 02 -->
+            <section class="story-chapter">
+                <div class="chapter-badge">Chapter 02 ── 蛻變</div>
+                <h3 class="chapter-title">異鄉的孤獨與堅韌</h3>
+                <p class="chapter-text">國中三年級，年僅15歲的她毅然告別熟悉的大阪，隻身踏上前往韓國的航班...</p>
+                <div class="chapter-gallery">
+                    <div class="magic-photo-frame" data-album="trainee">
+                        <img src="images/sana-smile.jpg" alt="Sana" class="gallery-photo">
+                        <div class="photo-caption">🔍 點擊開啟：練習生回憶錄</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Chapter 03 -->
+            <section class="story-chapter">
+                <div class="chapter-badge">Chapter 03 ── 考驗</div>
+                <h3 class="chapter-title">SIXTEEN：綻放獨一無二的魅力</h3>
+                <p class="chapter-text">2015年的那個夏天，在殘酷的生存節目《SIXTEEN》中，展現獨特魔法...</p>
+                <div class="chapter-gallery">
+                    <div class="magic-photo-frame" data-album="sixteen">
+                        <img src="images/sana-smile.jpg" alt="Sana" class="gallery-photo">
+                        <div class="photo-caption">🔍 點擊開啟：SIXTEEN 戰場影像</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Chapter 04 -->
+            <section class="story-chapter">
+                <div class="chapter-badge">Chapter 04 ── 巔峰</div>
+                <h3 class="chapter-title">「Shy Shy Shy」與巨星之光</h3>
+                <p class="chapter-text">隨著 TWICE 正式出道，一劑「No Sana No Life」的甜蜜魔咒迅速風靡全球...</p>
+                <div class="chapter-gallery">
+                    <div class="magic-photo-frame" data-album="twice">
+                        <img src="images/sana-smile.jpg" alt="Sana" class="gallery-photo">
+                        <div class="photo-caption">🔍 點擊開啟：全球巔峰舞台相冊</div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Chapter 05 -->
+            <section class="story-chapter">
+                <div class="chapter-badge">Chapter 05 ── 羈絆</div>
+                <h3 class="chapter-title">妳的笑容，由我們來守護</h3>
+                <p class="chapter-text">「如果沒有了粉絲，Sana 什麼都不是。」這是一句會讓所有 ONCE 心碎卻又驕傲的真心話...</p>
+                <div class="chapter-gallery">
+                    <div class="magic-photo-frame" data-album="once">
+                        <img src="images/sana-smile.jpg" alt="Sana" class="gallery-photo">
+                        <div class="photo-caption">🔍 點擊開啟：與 ONCE 的永恆瞬間</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+            全新擴充：Sana 的魔法語錄牆 (The Whisper of Magic)
+            ========================================================================== -->
+            <section class="quotes-section">
+                <div class="quotes-header">
+                    <span class="quotes-title-badge">The Whisper of Magic</span>
+                    <h4 class="quotes-main-title">精靈的魔法耳語</h4>
+                    <p class="quotes-subtitle">「文字具有魔力，而她的話語是治癒靈魂的咒語。」</p>
+                </div>
+            
+                <div class="quotes-grid">
+                    <!-- 語錄卡片 1 (大) -->
+                    <div class="quote-card size-large">
+                        <div class="quote-icon">“</div>
+                        <p class="quote-content">因為有 ONCE 的存在，Sana 才能閃閃發亮。如果沒有了大家，我什麼都不是。</p>
+                        <div class="quote-author">── SANA</div>
+                    </div>
+            
+                    <!-- 語錄卡片 2 (中) -->
+                    <div class="quote-card size-medium">
+                        <div class="quote-icon">“</div>
+                        <p class="quote-content">即使看不見彼此，我們的心也永遠緊緊連在一起，這就是我們的魔法。</p>
+                        <div class="quote-author">── SANA</div>
+                    </div>
+            
+                    <!-- 語錄卡片 3 (中) -->
+                    <div class="quote-card size-medium">
+                        <div class="quote-icon">“</div>
+                        <p class="quote-content">無論發生什麼事，只要看到 ONCE 的笑容，我的世界就會瞬間放晴。</p>
+                        <div class="quote-author">── SANA</div>
+                    </div>
+            
+                    <!-- 語錄卡片 4 (小) -->
+                    <div class="quote-card size-small">
+                        <div class="quote-icon">“</div>
+                        <p class="quote-content">不要忘記，我會一直在這裡，用溫柔和開朗守護著你們的每一天。</p>
+                        <div class="quote-author">── SANA</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================================================
+            終極大結局：給精靈的終極情書 (The Endless Letter)
+            ========================================================================= -->
+            <section class="letter-section">
+                <!-- 魔法信封主體 -->
+                <div class="letter-envelope" id="magicEnvelope">
+                    <div class="envelope-flap"></div>
+                    <div class="envelope-body">
+                        <div class="wax-seal">🔮</div>
+                    </div>
+                    <div class="envelope-text">給永遠的精靈 · 點擊開啟</div>
+                </div>
+            
+                <!-- 隱藏在信封內、點擊後優雅展開的長信 -->
+                <div class="letter-scroll" id="magicScroll">
+                    <div class="scroll-body">
+                        <p class="scroll-date">2026.05.20</p>
+                        <h5 class="scroll-salutation">親愛的 Sana (紗夏)：</h5>
+            
+                        <p class="scroll-paragraph">
+                            當妳看到這封信的時候，這場由程式碼編織的櫻花與流星雨，是否已經悄悄觸動了妳的心？
+                        </p>
+                        <p class="scroll-paragraph">
+                            我們在不同的城市呼吸，透過螢幕看著妳從大阪那個喜歡幻想的女孩，一步步咬著牙，在異鄉的無數個深夜裡，將淚水化作舞台上最閃耀的巨星之光。大家總說「No Sana No
+                            Life」，但對我而言，妳的笑容不僅僅是一句口號，而是治癒了無數疲憊靈魂的最強大魔法。
+                        </p>
+                        <p class="scroll-paragraph">
+                            在這個充滿喧囂的世界裡，妳總是把最溫柔、最開朗的一面留給我們。但我希望妳知道，在這個為妳打造的專屬世界裡，妳不需要永遠當一個堅強的超人。累的時候、想哭的時候，請回頭看看，ONCE
+                            的愛會化作漫天不滅的星光，永遠守護著妳的笑容。
+                        </p>
+                        <p class="scroll-paragraph">
+                            謝謝妳誕生在這個世界上，謝謝妳成為我們生命中最美好的奇蹟。
+                        </p>
+            
+                        <div class="scroll-signature">
+                            <p>願妳永遠幸福、永遠被愛包裹</p>
+                            <p class="author-name">── 妳的守護者 ONCE 敬上</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 【新增功能 3】：時光留言板區塊 -->
+            <section class="guestbook-section">
+                <h4 class="guestbook-title">留下你對精靈的話</h4>
+                <div class="comment-form">
+                    <input type="text" id="commenterName" placeholder="你的名字 (例: 香港ONCE)" required>
+                    <textarea id="commentText" rows="4" placeholder="寫下你想對 Sana 說的話，或者對這個網站的感動..." required></textarea>
+                    <button type="button" id="submitCommentBtn">施展魔法 · 送出留言</button>
+                </div>
+                <div class="comments-display" id="commentsDisplay">
+                    <!-- 留言會透過 JavaScript 自動渲染到這裡 -->
+                </div>
+            </section>
+        
+        </main>
+    </div>
+
+    <!-- ==========================================================================
+    全新超高階：全螢幕沉浸式彈出視窗容器 (Modals)
+    ========================================================================== -->
+    <div class="magic-modal" id="magicModal">
+        <div class="modal-bg-overlay"></div>
+        <div class="modal-window">
+            <button class="modal-close-btn" id="modalCloseBtn">✕</button>
+            <div class="modal-dynamic-content" id="modalDynamicContent">
+                <!-- 內容會根據點擊的東西動態抽換（詳細資料或相簿） -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ==========================================================================
+    全新進化：魔法音樂盒元件 (The Symphony of Whispers)
+    ========================================================================== */ -->
+    <div class="magic-music-box" id="magicMusicBox">
+        <!-- 音符發光按鈕 -->
+        <button class="music-toggle-btn" id="musicToggleBtn">
+            <span class="music-icon">🎵</span>
+        </button>
+        <!-- 音樂飄浮提示小標籤 -->
+        <div class="music-tooltip">開啟內心旋律</div>
+    
+        <!-- 隱藏的音頻播放器（雙聲道：一個放春日，一個放星夜） -->
+        <audio id="audioSpring" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+        <audio id="audioMidnight" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"></audio>
+    </div>
+
+    <!-- 引入魔法動效 -->
+    <script src="js/magic.js"></script>
+</body>
+
+</html>
