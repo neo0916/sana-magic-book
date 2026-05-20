@@ -221,4 +221,3 @@ function startStarRain() {
 }
 /* --- 修正：確保移除流星雨時完全清空 --- */
 function stopStarRain() { clearInterval(starInterval); starInterval = null; document.querySelectorAll('.star-particle').forEach(s => { s.remove(); }); }
-
