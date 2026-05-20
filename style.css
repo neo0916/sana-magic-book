@@ -1,0 +1,1165 @@
+/* ==========================================================================
+   1. 基礎設定與重設 (Reset & Base)
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body,
+html {
+    width: 100%;
+    height: 100%;
+    font-family: 'PingFang HK', 'Helvetica Neue', sans-serif;
+    background-color: #0d0614;
+    /* 預設神祕極深紫黑背景 */
+    overflow: hidden;
+    /* 先鎖住捲軸，讓開場畫面完美呈現 */
+}
+
+/* ==========================================================================
+   2. 魔法開場畫面佈局 (Magic Intro Layout)
+   ========================================================================== */
+.magic-intro {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../images/magic-bg-dark.jpg');
+    /* 你的深色夢幻背景 */
+    background-size: cover;
+    background-position: center;
+    transition: all 1.5s ease;
+}
+
+.magic-mist {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(13, 6, 20, 0.4) 0%, rgba(13, 6, 20, 0.85) 100%);
+    z-index: 1;
+}
+
+/* ==========================================================================
+   3. 核心：微笑鑰匙與驚艷動效 (Smile Key Card)
+   ========================================================================== */
+.smile-key-container {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.smile-card {
+    position: relative;
+    width: 280px;
+    height: 380px;
+    margin: 0 auto 30px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.smile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%) brightness(90%);
+    transition: all 0.6s ease;
+}
+
+.magic-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 2px solid rgba(218, 178, 255, 0.6);
+    border-radius: 20px;
+    pointer-events: none;
+    box-shadow: inset 0 0 30px rgba(218, 178, 255, 0.3);
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+.smile-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 25px 50px rgba(186, 114, 255, 0.4);
+}
+
+.smile-card:hover .smile-photo {
+    filter: grayscale(0%) brightness(110%);
+}
+
+.smile-card:hover .magic-glow {
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+/* ==========================================================================
+   4. 魔幻文字排版 (Typography)
+   ========================================================================== */
+.magic-title {
+    font-size: 1.8rem;
+    color: #ffffff;
+    font-weight: 300;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.magic-subtitle {
+    font-size: 0.95rem;
+    color: #dab2ff;
+    letter-spacing: 2px;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   5. JavaScript 動效專用 CSS 樣式與動畫
+   ========================================================================== */
+.magic-particle {
+    position: fixed;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffffff 0%, #dab2ff 60%, rgba(218, 178, 255, 0) 100%);
+    pointer-events: none;
+    z-index: 999;
+    box-shadow: 0 0 10px #dab2ff, 0 0 20px #ffffff;
+}
+
+@keyframes sparkFly {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(var(--x), var(--y)) scale(0);
+        opacity: 0;
+    }
+}
+
+.sakura-petal {
+    position: fixed;
+    top: -20px;
+    width: 15px;
+    height: 12px;
+    background: linear-gradient(135deg, #ffb7d5 0%, #ffe3ec 100%);
+    border-radius: 70% 10% 70% 40%;
+    pointer-events: none;
+    z-index: 90;
+    opacity: 0.8;
+    box-shadow: 0 2px 5px rgba(255, 183, 213, 0.4);
+}
+
+@keyframes petalFall {
+    0% {
+        top: -20px;
+        transform: translateX(0) rotate(0deg);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: translateX(60px) rotate(180deg);
+        opacity: 0.9;
+    }
+
+    100% {
+        top: 100vh;
+        transform: translateX(-20px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ==========================================================================
+   6. 解鎖後的「春日仙境」主體內容樣式 (Main Content)
+   ========================================================================== */
+.magic-content-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #fff5f8 0%, #fffbf2 50%, #f7f0ff 100%);
+    color: #4a3754;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+.magic-content-wrapper.fade-in {
+    opacity: 1;
+}
+
+.magic-nav {
+    width: 100%;
+    padding: 30px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 183, 213, 0.3);
+}
+
+.nav-logo {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: #b57cbe;
+}
+
+/* ==========================================================================
+   7. 雙色系：星夜魔法模式樣式 (Dark Midnight Magic Theme)
+   ========================================================================== */
+.theme-toggle-btn {
+    background: rgba(255, 227, 236, 0.6);
+    border: 1px solid #ffb7d5;
+    padding: 10px 24px;
+    border-radius: 30px;
+    color: #e27396;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(255, 183, 213, 0.2);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.theme-toggle-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255, 183, 213, 0.4);
+}
+
+body.dark-mode .theme-toggle-btn {
+    background: rgba(26, 12, 41, 0.6);
+    border: 1px solid #dab2ff;
+    color: #dab2ff;
+    box-shadow: 0 4px 15px rgba(218, 178, 255, 0.2);
+}
+
+body.dark-mode .magic-content-wrapper {
+    background: linear-gradient(180deg, #0d0614 0%, #160e22 50%, #08030d 100%);
+    color: #e3d5eb;
+}
+
+body.dark-mode .hero-title,
+body.dark-mode .chapter-title {
+    color: #dab2ff;
+    text-shadow: 0 0 15px rgba(218, 178, 255, 0.4);
+}
+
+body.dark-mode .story-chapter {
+    background: rgba(20, 11, 31, 0.65);
+    border: 1px solid rgba(218, 178, 255, 0.15);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .story-chapter:hover {
+    background: rgba(28, 16, 43, 0.85);
+    border-color: rgba(218, 178, 255, 0.4);
+    box-shadow: 0 30px 60px rgba(218, 178, 255, 0.2);
+}
+
+.star-particle {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 85;
+    box-shadow: 0 0 8px #dab2ff;
+}
+
+@keyframes starFall {
+    0% {
+        top: -50px;
+        transform: translateX(0) scale(1);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        top: 100vh;
+        transform: translateX(-150px) scale(0.5);
+        opacity: 0;
+    }
+}
+
+/* ==========================================================================
+   8. 記憶章節與語錄牆排版
+   ========================================================================== */
+.story-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 80px 20px;
+}
+
+.story-hero {
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+.hero-title {
+    font-size: 2.8rem;
+    font-weight: 300;
+    letter-spacing: 6px;
+    margin-bottom: 20px;
+    color: #7c5295;
+}
+
+.hero-intro {
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+.scroll-badge {
+    margin-top: 40px;
+    font-size: 0.85rem;
+    color: #b57cbe;
+    letter-spacing: 3px;
+    animation: pulse 2s infinite;
+}
+
+.story-chapter {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 60px 50px;
+    margin-bottom: 80px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 20px 45px rgba(181, 124, 190, 0.05);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.story-chapter:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 183, 213, 0.5);
+    box-shadow: 0 30px 60px rgba(255, 183, 213, 0.15);
+}
+
+.chapter-badge {
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    color: #e27396;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.chapter-title {
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    color: #4a3754;
+}
+
+.chapter-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    letter-spacing: 1px;
+    text-align: justify;
+    opacity: 0.9;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.4;
+        transform: translateY(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(5px);
+    }
+
+    100% {
+        opacity: 0.4;
+        transform: translateY(0);
+    }
+}
+
+/* --- 語錄牆 --- */
+.quotes-section {
+    margin-top: 120px;
+    padding-top: 60px;
+    border-top: 1px dashed rgba(181, 124, 190, 0.3);
+}
+
+.quotes-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.quotes-main-title {
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+    color: #7c5295;
+    margin: 10px 0;
+}
+
+body.dark-mode .quotes-main-title {
+    color: #dab2ff;
+}
+
+.quotes-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+.quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.quote-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    box-shadow: 0 10px 30px rgba(181, 124, 190, 0.04);
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.size-large {
+    grid-row: span 2;
+    min-height: 380px;
+}
+
+.size-medium {
+    min-height: 220px;
+}
+
+.size-small {
+    min-height: 180px;
+}
+
+.quote-icon {
+    font-size: 4rem;
+    font-family: Georgia, serif;
+    color: rgba(255, 183, 213, 0.4);
+    position: absolute;
+    top: 15px;
+    left: 25px;
+    pointer-events: none;
+}
+
+body.dark-mode .quote-icon {
+    color: rgba(218, 178, 255, 0.15);
+}
+
+.quote-content {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    letter-spacing: 1.5px;
+    position: relative;
+    z-index: 1;
+    font-style: italic;
+}
+
+.quote-author {
+    font-size: 0.8rem;
+    font-weight: bold;
+    letter-spacing: 3px;
+    color: #e27396;
+    text-align: right;
+    margin-top: 20px;
+}
+
+body.dark-mode .quote-author {
+    color: #dab2ff;
+}
+
+.quote-card:hover {
+    transform: scale(1.03) translateY(-5px);
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(255, 183, 213, 0.6);
+    box-shadow: 0 20px 40px rgba(255, 183, 213, 0.25);
+}
+
+body.dark-mode .quote-card {
+    background: rgba(20, 11, 31, 0.4);
+    border: 1px solid rgba(218, 178, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .quote-card:hover {
+    background: rgba(28, 16, 43, 0.8);
+    border-color: rgba(218, 178, 255, 0.4);
+    box-shadow: 0 20px 40px rgba(218, 178, 255, 0.25);
+}
+
+/* ==========================================================================
+   9. 時光畫卷 ── 魔法時光相簿樣式
+   ========================================================================== */
+.chapter-gallery {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.magic-photo-frame {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 320px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    cursor: pointer;
+}
+
+.gallery-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(10%) contrast(102%) brightness(98%);
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.photo-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.6));
+    color: #ffffff;
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.4s ease;
+}
+
+.magic-photo-frame:hover {
+    transform: scale(1.02) translateY(-5px);
+    box-shadow: 0 15px 35px rgba(255, 183, 213, 0.3);
+}
+
+.magic-photo-frame:hover .gallery-photo {
+    transform: scale(1.05);
+    filter: sepia(0%) brightness(105%);
+}
+
+.magic-photo-frame:hover .photo-caption {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+body.dark-mode .gallery-photo {
+    filter: grayscale(100%) contrast(110%) brightness(80%);
+}
+
+body.dark-mode .magic-photo-frame:hover {
+    box-shadow: 0 20px 45px rgba(218, 178, 255, 0.4);
+}
+
+body.dark-mode .magic-photo-frame:hover .gallery-photo {
+    filter: grayscale(0%) contrast(100%) brightness(105%);
+}
+
+body.dark-mode .photo-caption {
+    background: linear-gradient(transparent, rgba(13, 6, 20, 0.85));
+}
+
+/* ==========================================================================
+   10. 給精靈的終極情書與留言板樣式
+   ========================================================================== */
+.letter-section {
+    margin-top: 150px;
+    padding-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.letter-envelope {
+    position: relative;
+    width: 320px;
+    height: 200px;
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
+    border-radius: 8px;
+    box-shadow: 0 15px 35px rgba(226, 115, 150, 0.2);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    z-index: 10;
+}
+
+body.dark-mode .letter-envelope {
+    background: linear-gradient(135deg, #25163a 0%, #1a0c29 100%);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(218, 178, 255, 0.2);
+}
+
+.wax-seal {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    transition: transform 0.5s ease;
+}
+
+.envelope-text {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    color: #e27396;
+    font-weight: bold;
+}
+
+body.dark-mode .envelope-text {
+    color: #dab2ff;
+}
+
+.letter-envelope:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(226, 115, 150, 0.35);
+}
+
+body.dark-mode .letter-envelope:hover {
+    box-shadow: 0 25px 50px rgba(218, 178, 255, 0.3);
+}
+
+.letter-envelope:hover .wax-seal {
+    transform: scale(1.1) rotate(15deg);
+}
+
+.letter-scroll {
+    width: 100%;
+    max-width: 600px;
+    height: 0;
+    overflow: hidden;
+    transition: all 2s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 0;
+}
+
+.letter-scroll.open {
+    height: auto;
+    min-height: 500px;
+    opacity: 1;
+    margin-top: 50px;
+}
+
+.scroll-body {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 60px 50px;
+    border: 1px solid rgba(255, 183, 213, 0.3);
+    box-shadow: inset 0 0 40px rgba(255, 183, 213, 0.1), 0 20px 50px rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .scroll-body {
+    background: rgba(20, 11, 31, 0.8);
+    border: 1px solid rgba(218, 178, 255, 0.2);
+    box-shadow: inset 0 0 40px rgba(218, 178, 255, 0.05), 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.scroll-date {
+    font-size: 0.85rem;
+    font-family: monospace;
+    opacity: 0.6;
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+.scroll-salutation {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #7c5295;
+}
+
+body.dark-mode .scroll-salutation {
+    color: #dab2ff;
+}
+
+.scroll-paragraph {
+    font-size: 1.05rem;
+    line-height: 2;
+    letter-spacing: 1.5px;
+    margin-bottom: 25px;
+    text-align: justify;
+    text-indent: 2em;
+}
+
+.scroll-signature {
+    margin-top: 50px;
+    text-align: right;
+    line-height: 1.8;
+}
+
+.author-name {
+    font-weight: bold;
+    color: #e27396;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+body.dark-mode .author-name {
+    color: #dab2ff;
+}
+
+/* --- 時光留言板 --- */
+.guestbook-section {
+    margin-top: 100px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 24px;
+    padding: 40px;
+    border: 1px solid rgba(255, 183, 213, 0.3);
+}
+
+body.dark-mode .guestbook-section {
+    background: rgba(20, 11, 31, 0.5);
+    border-color: rgba(218, 178, 255, 0.15);
+}
+
+.guestbook-title {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: #7c5295;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+body.dark-mode .guestbook-title {
+    color: #dab2ff;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.comment-form input,
+.comment-form textarea {
+    width: 100%;
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid rgba(181, 124, 190, 0.3);
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    color: #4a3754;
+    outline: none;
+    transition: all 0.3s;
+}
+
+body.dark-mode .comment-form input,
+body.dark-mode .comment-form textarea {
+    background: rgba(13, 6, 20, 0.6);
+    border-color: rgba(218, 178, 255, 0.2);
+    color: #e3d5eb;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+    border-color: #e27396;
+    box-shadow: 0 0 10px rgba(255, 183, 213, 0.4);
+}
+
+body.dark-mode .comment-form input:focus,
+body.dark-mode .comment-form textarea:focus {
+    border-color: #dab2ff;
+    box-shadow: 0 0 10px rgba(218, 178, 255, 0.4);
+}
+
+#submitCommentBtn {
+    background: linear-gradient(135deg, #e27396 0%, #b57cbe 100%);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+#submitCommentBtn:hover {
+    transform: translateY(-3px);
+}
+
+.comments-display {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.single-comment {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 16px;
+    border-left: 4px solid #e27396;
+    animation: fadeIn 0.5s ease;
+}
+
+body.dark-mode .single-comment {
+    background: rgba(28, 16, 43, 0.8);
+    border-left-color: #dab2ff;
+}
+
+.comment-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #b57cbe;
+}
+
+.comment-body {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   11. 全螢幕沉浸式彈出視窗 (Modal CSS)
+   ========================================================================== */
+.magic-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.magic-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-bg-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(13, 6, 20, 0.6);
+    backdrop-filter: blur(8px);
+}
+
+.modal-window {
+    position: relative;
+    width: 90%;
+    max-width: 700px;
+    max-height: 85vh;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 24px;
+    padding: 40px;
+    overflow-y: auto;
+    z-index: 2100;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9) translateY(20px);
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+body.dark-mode .modal-window {
+    background: rgba(24, 15, 38, 0.95);
+    border: 1px solid rgba(218, 178, 255, 0.2);
+    color: #e3d5eb;
+}
+
+.magic-modal.active .modal-window {
+    transform: scale(1) translateY(0);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #b57cbe;
+    transition: transform 0.3s;
+}
+
+.modal-close-btn:hover {
+    transform: rotate(90deg);
+}
+
+.profile-title,
+.album-title {
+    font-size: 1.8rem;
+    color: #7c5295;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 2px;
+}
+
+body.dark-mode .profile-title,
+body.dark-mode .album-title {
+    color: #dab2ff;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 15px;
+    line-height: 2;
+    font-size: 1.05rem;
+}
+
+.profile-label {
+    font-weight: bold;
+    color: #e27396;
+}
+
+body.dark-mode .profile-label {
+    color: #dab2ff;
+}
+
+.modal-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modal-gallery-grid img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.modal-gallery-grid img:hover {
+    transform: scale(1.05);
+}
+
+/* ==========================================================================
+   12. 魔法音樂盒與全新擴充：倒數鐘樣式 (Countdown & Music)
+   ========================================================================== */
+.magic-music-box {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    /* 由 JS 平滑浮現並開啟 */
+    align-items: center;
+    transition: opacity 1s ease;
+}
+
+.music-toggle-btn {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid #ffb7d5;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(255, 183, 213, 0.4);
+    transition: all 0.5s ease;
+    animation: musicSpinSpring 6s linear infinite;
+    animation-play-state: paused;
+}
+
+.music-toggle-btn:hover {
+    transform: scale(1.1);
+}
+
+.music-tooltip {
+    position: absolute;
+    right: 70px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    color: #e27396;
+    white-space: nowrap;
+    border: 1px solid #ffb7d5;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    transform: translateX(10px);
+    transition: all 0.4s ease;
+    pointer-events: none;
+}
+
+.magic-music-box:hover .music-tooltip {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+body.dark-mode .music-toggle-btn {
+    background: rgba(20, 11, 31, 0.8);
+    border: 2px solid #dab2ff;
+    box-shadow: 0 10px 25px rgba(218, 178, 255, 0.4);
+    animation-name: musicSpinMidnight;
+}
+
+body.dark-mode .music-tooltip {
+    background: rgba(24, 15, 38, 0.9);
+    border-color: #dab2ff;
+    color: #dab2ff;
+}
+
+.music-toggle-btn.playing {
+    animation-play-state: running;
+    box-shadow: 0 0 25px #ffb7d5, 0 0 50px rgba(255, 183, 213, 0.6);
+}
+
+body.dark-mode .music-toggle-btn.playing {
+    box-shadow: 0 0 25px #dab2ff, 0 0 50px rgba(218, 178, 255, 0.6);
+}
+
+@keyframes musicSpinSpring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes musicSpinMidnight {
+    0% {
+        transform: rotate(360deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+/* --- 【新增】生日魔法倒數鐘樣式 --- */
+.magic-countdown-container {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 183, 213, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+    margin: 40px auto;
+    text-align: center;
+    max-width: 600px;
+    box-shadow: 0 15px 35px rgba(181, 124, 190, 0.06);
+}
+
+body.dark-mode .magic-countdown-container {
+    background: rgba(20, 11, 31, 0.6);
+    border-color: rgba(218, 178, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.countdown-label {
+    font-size: 1rem;
+    letter-spacing: 2px;
+    color: #7c5295;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+body.dark-mode .countdown-label {
+    color: #dab2ff;
+}
+
+.countdown-timer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.timer-segment {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px 20px;
+    border-radius: 12px;
+    min-width: 80px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+}
+
+body.dark-mode .timer-segment {
+    background: rgba(13, 6, 20, 0.8);
+}
+
+.timer-number {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #e27396;
+    font-family: monospace;
+}
+
+body.dark-mode .timer-number {
+    color: #dab2ff;
+    text-shadow: 0 0 10px rgba(218, 178, 255, 0.5);
+}
+
+.timer-unit {
+    font-size: 0.75rem;
+    color: #b57cbe;
+    margin-top: 5px;
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   13. 時光軸立體浮現動畫樣式 (Scroll-Driven Reveal)
+   ========================================================================== */
+.story-chapter,
+.quotes-section,
+.guestbook-section,
+.magic-countdown-container {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform, opacity;
+}
+
+.story-chapter.reveal-active,
+.quotes-section.reveal-active,
+.guestbook-section.reveal-active,
+.magic-countdown-container.reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+}
