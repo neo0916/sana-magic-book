@@ -1094,7 +1094,7 @@ body.dark-mode .profile-label {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    z-index: 3000;
+    z-index: 9999;
     /* 確保永遠懸浮在最上層 */
     display: none;
     /* 預設先藏起來，等解鎖大門後才顯現 */

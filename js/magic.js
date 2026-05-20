@@ -59,8 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = 'auto';
             document.querySelector('.magic-content-wrapper').classList.add('fade-in');
 
-            // 【新增】：解鎖後，讓右下角的音樂盒按鈕優雅浮現
+            // 【神級修正聯動】：大門完全消失後，音樂盒以 1 秒的速度溫柔浮現
             magicMusicBox.style.display = 'flex';
+            setTimeout(() => {
+                magicMusicBox.style.opacity = '1';
+            }, 50);
 
             startSakuraRain();
         }, 1500);
